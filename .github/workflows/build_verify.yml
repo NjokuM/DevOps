@@ -1,0 +1,27 @@
+name: Build and Verify Application
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build application
+      run: make
+
+    - name: Verify build
+      run: |
+        if [ -f hello ]; then
+          echo "Build succeeded!"
+        else
+          echo "Build failed."
+          exit 1
+        fi
+
